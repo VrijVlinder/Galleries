@@ -1,0 +1,102 @@
+.picGals .clr {
+clear:both;
+}
+.picGals .pics {
+display: inline;
+width: 100%;
+text-align: center;
+margin: 0 auto;
+}
+.picGals .pics img {
+display: inline;
+width: 300px;
+height: auto;
+text-align: center;
+margin: 15px 15px 15px 15px;
+border-radius: 50px 50px 50px 50px!important;
+box-shadow: 0px 2px 2px 12px #666;
+}
+
+body.Dashboard.Plugin.gallery #Body {
+background:none transparent;
+
+}
+body.Dashboard.Plugin.gallery #Content h1 {
+display: block;
+margin: 0 auto;
+float: none;
+text-align: center;
+}
+body.Dashboard.Plugin.gallery #Content h2 {
+font-size: 130%;
+font-weight: bold;
+margin-bottom: 10px;
+color: aqua;
+text-align: center;
+border: 1px solid #666;
+}
+body.Dashboard.Plugin.gallery #Content{
+width:90%;
+margin: 0 auto;
+float: none;
+}
+body.Dashboard.Plugin.gallery #Panel{
+display:none;
+}
+body.Dashboard.Plugin.gallery #Foot {
+background: none transparent!important;
+border:none!important;
+margin: 0 auto;
+padding: 287px 0 70px!important;
+}
+
+body.Dashboard.Plugin.manager #Panel {
+display:none;
+}
+table#Log.AltColumns, div#Content, table#Users.AltColumns, table tbody th, table tbody td, table.Label.AltRows {
+border: 1px solid #666;
+width: 100%;
+float: left;
+margin-left: -0px;
+position: relative;
+text-align:center;
+}
+
+a.gal,a.gal:link{
+color:#ccc;
+font-size:18px!important;
+font-weight:bold;
+text-shadow:0 1px 0 #000;
+}
+a.gal:link:hover, a.gal:hover{
+color:aqua!important;
+font-size:18px!important;
+font-weight:bold;
+text-shadow:0 1px 0 #000;
+}
+h19{
+font-size:28px;
+font-weight:bold;
+font-family:Impact,Arial;
+color:aqua;
+
+}
+h12{
+font-size:20px;
+font-weight:bold;
+}
+
+div.Info {
+background: none transparent;
+border:none;
+}
+body.Dashboard.Plugin.gallery div.picbox img{
+width:150px;
+height:auto;
+}
+input.Button{
+text-shadow:0 1px 0 #fff;
+}
+div#Content h1 {
+border:1px solid #666!important;
+}
