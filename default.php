@@ -3,7 +3,7 @@
 
 $PluginInfo['Galleries'] = array(
    'Name' => 'Galleries',
-   'Description' => 'Adds an Image gallery to you website for you and users to add new pictures to the gallery.<br/>You can create seperate albums and upload forms for everyone to have their own personal album, or create a community album for everyone.<br/>',
+   'Description' => 'Adds an Image Gallery to you website for you and users to add new pictures to the gallery.<br/>You can create seperate albums and upload forms for everyone to have their own personal album, or create a community album for everyone.<br/>',
    'Version' => '1.0',
    'Author' => 'VrijVlinder',
    'AuthorEmail' => 'contact@vrijvlinder.com',
