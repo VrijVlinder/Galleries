@@ -1,9 +1,10 @@
 <?php if (!defined('APPLICATION')) exit();
-$this->Head->Title('Galleries');
+
+$this->Head->Title('Gallery');
 
 
 $this->AddCssFile('custom.css');
-$this->AddCssFile('gallery.css', 'plugins/PictureGallery');
+$this->AddCssFile('gallery.css', 'plugins/Galleries');
 
 
 
@@ -43,9 +44,9 @@ foreach($folders as $vv){
 
 if(is_file($dir.$vv.'/notes.dat.php')){
 		$title = str_replace('_', ' ', $vv);
-		echo '<div class="picGals"><h2>'.$title.'</h2>';
+		echo '<div class="picGals"><h3>'.$title.'</h3>';
 
-// now lets go through the folder grabbing 100 from it to display as preview..
+// now lets go through the folder grabbing 100 from it to display as preview..you can choose a different number
 		
 $fi = file($dir.$vv.'/notes.dat.php');
 		$cc = count($fi);
@@ -54,16 +55,21 @@ $fi = file($dir.$vv.'/notes.dat.php');
 		for($i=0;$i<100;$i++){
 			if(isset($fi[$i])){
 				$pg = explode('|', $fi[$i]);
-				echo '<div class="pics"><img src="/forum/'.$dir.$vv.'/'.$pg[0].'" alt="User Images" /></div>';
+				echo '<div class="pics"><a class="fancybox" target="_blank" rel="group" href="/forum/'.$dir.$folder.$title.'/'.$pg[0].'" title="'.stripslashes(htmlentities(urldecode($pg2[1]))).'"><img src="/forum/'.$dir.$vv.'/'.$pg[0].'" alt="User Images"/></a></div>';
 			}
-		} echo '<div class="clr"></div><div class="linkBar"><a class="Button" href="/forum/gallery/'.$vv.'">View or Upload More Pictures From '.$title.'</a></div>
+
+		} 
+
+
+echo '<div class="clr"></div><div class="linkBar"><a class="Button" href="/forum/gallery/'.$vv.'">View or Upload More Pictures From '.$title.'</a></div>
 		</div>';
 	}
 }
 	break;
 	case 'gallery':
-	echo '<div class="picGals"><h2>'.$doi.'</h2>';
-		$fi = file($dir.$folder.'/notes.dat.php');
+	echo '<div class="picGals"><h3>'.$doi.'</h3>';
+		
+                $fi = file($dir.$folder.'/notes.dat.php');
 		$cc = count($fi);
 
 // browse the pictures..
@@ -73,10 +79,7 @@ $fi = file($dir.$vv.'/notes.dat.php');
 			
 			if(is_int($bb/3)){ echo '<div class="clr"></div>'; }
 			$bb++;
-			echo '
-			<div class="pics">
-			<a class="fancybox" rel="group" href="'.$dir.$folder.'/'.$pg2[0].'" title="'.stripslashes(htmlentities(urldecode($pg2[1]))).'"><img src="/forum/'.$dir.$folder.'/'.$pg2[0].'" alt="group" /></a><br />
-			</div>';
+			echo '<div class="pics"><img src="/forum/'.$dir.$folder.'/'.$pg2[0].'" alt="UserImages" /><br /></div>';
 		}
 		echo '<div class="clr"></div>';
 		?>
@@ -91,11 +94,15 @@ $fi = file($dir.$vv.'/notes.dat.php');
 <?php 
 echo '</br>';
 
+$UserHasPermission = Gdn::Session()->CheckPermission('Plugins.Attachments.Upload.Allow', TRUE); if($UserHasPermission) {
+
 $dir = 'uploads/picgal/';
 $PATH2IM = ''; // with a trailing slash -- /usr/local/bin/ for liquidweb.com servers.
 
 
 // making a new folder..
+
+
 if(isset($_POST['PGFolder'])){
 // creating a new folder.
 	$dir = 'uploads/picgal/';
@@ -112,32 +119,35 @@ if(isset($_POST['PGFolder'])){
 			$pg = 'upload';
 		} else { $pg = 'error'; }
 	} else {
-		echo 'errpr';
-		$error[] = 'You need a folder name to save a new folder..';
+		echo '<h20>You do not have the permission to do that...Please Log In</h20>';
+		$error[] = '<h21>You need a folder name to save a new folder..</h21>';
 	}
 }
-
+}
 // uploading a new picture..
+$UserHasPermission = Gdn::Session()->CheckPermission('Plugins.Attachments.Upload.Allow', TRUE); if($UserHasPermission) {
 
 if(isset($_POST['PGUpload'])){
-	$theFile = uploadNresizeGallery($_FILES, $dir.$_POST['PGWhichFolder'].'/');
+	
+$theFile = uploadNresizeGallery($_FILES, $dir.$_POST['PGWhichFolder'].'/');
 	if(isset($theFile['small'])){
+
 // gotta find the file name..
 		$blow = explode('/', $theFile['large']);
 		$cc = count($blow);
 		$write2file = new FileWriting;
 		$gogo = $write2file->add2File($dir.$_POST['PGWhichFolder'].'/notes.dat.php', $blow[$cc-1].'|'.urlencode($_POST['PGCaption']));
 		if(is_array($gogo)) echo $gogo[0];
- else echo '<b>Success File has been uploaded!</b><br />';
+ else echo '<b><h3>Success File has been uploaded!... </h3></b><br /><a href="/forum/gallery" title="Go Back To Main Gallery">Go Back to main Gallery</a>....<br />';
 	} 
-else {
+else{
 // couldnt upload the picture.
 		$pg = 'error';
-		echo 'Error';
+		echo '<h21>Error</h21>';
 		print_r($theFile);
 	}
 }
-
+}
 //figuring out what page we're on
 
 $path = $_SERVER['REQUEST_URI'];
@@ -153,34 +163,37 @@ if(isset($ex[3])){
 }
 
 // editing the image
-
-if(isset($_POST['imgName']) && isset($_POST['imgSave'])){
-	echo 'Editing the image..<br />';
-	
-switch($_POST['imgSave']){
-		case 'Delete Image':
-			echo 'deleting the image<br />';
-			unlink($dir.$folder.'/'.$_POST['imgName']);
-			unlink($dir.$folder.'/th/'.$_POST['imgName']);
-			$write2file = new FileWriting;
-			$gogo = $write2file->editLine($dir.$folder.'/notes.dat.php', array('where' => '0', 'id' => $_POST['imgName'], 'doW' => 'delete'));
-			echo $gogo;
-		break;
-		case 'Save Image':
-			echo 'saving the caption on the image..<br />';
-			$write2file = new FileWriting;
-			$gogo = $write2file->editLine($dir.$folder.'/notes.dat.php', array('where' => '0', 'id' => $_POST['imgName'], 'doW' => 'edit'), $_POST['imgName'].'|'.urlencode($_POST['imgCap']));
-			echo $gogo;
-		break;
-	}
+$UserHasPermission = Gdn::Session()->CheckPermission('Plugins.Attachments.Upload.Allow', TRUE); if($UserHasPermission) {
+  if(isset($_POST['imgName']) && isset($_POST['imgSave'])) {
+    echo 'Editing the image..';
+    switch($_POST['imgSave']) {
+        case 'Delete Image':
+            echo 'deleting the image...<br /><a href="/forum/gallery" title="Go Back To Main Gallery">Go Back to main Gallery...</a><br/>';
+            unlink($dir.$folder.'/'.$_POST['imgName']);
+            unlink($dir.$folder.'/th/'.$_POST['imgName']);
+            $write2file = new FileWriting;
+            $gogo = $write2file->editLine($dir.$folder.'/notes.dat.php', array('where' => '0', 'id' => $_POST['imgName'], 'doW' => 'delete'));
+            echo $gogo;
+        break;
+        case 'Save Image';
+            echo 'saving the caption on the image..<br /><a href="/forum/gallery" title="Go Back To Main Gallery">Go Back to main Gallery</a>....<br />';
+            $write2file = new FileWriting;
+            $gogo = $write2file->editLine($dir.$folder.'/notes.dat.php', array('where' => '0', 'id' => $_POST['imgName'], 'doW' => 'edit'), $_POST['imgName'].'|'.urlencode($_POST['imgCap']));
+            echo $gogo;
+        break;
+    }
+  } 
 }
+else {
+  echo '<h20>You do not have the permission to do that...Please Log In</h20>';
+} 
+
 
 switch($pg){
 	case 'upload':
 		
  echo '<h3>Upload to '.$doi.'</h3></br>';
 		?>
-
 
 <div class="Info">
 
@@ -193,9 +206,9 @@ switch($pg){
 		</form>
 		</div>
 		<div>
-			<h2>Current pictures in this folder.</h2>
+			<h3>Current pictures in this folder</h3></div>
 			<div id="PicGallery">
-				</div>
+				
 
 		<?php
 // open and read the notes file..
@@ -216,7 +229,7 @@ $fi = file($dir.$folder.'/notes.dat.php');
 			<input type="submit" name="imgSave" value="Delete Image"  class="Button" />
 			</div>
 		</form>';
-			if(is_int($i/4)) echo '
+			if(is_int($i/1000)) echo '
 				<div class="clr"></div>
 			</div>
 			<div>';
@@ -228,13 +241,13 @@ $fi = file($dir.$folder.'/notes.dat.php');
 		</div>';
 	break;
 	case 'error':
-		echo '<b>Some errors occured,Name of folder already exists.</b>';
+		echo '<b><h21>Some errors occured,Name of folder already exists....</h21></b>';
 	break;
 	default:
 
 ?>
 <div class="Info">
-	<b><h2>Here you can add new Albums to the Gallery</h2></b><br />
+	<b><h3>Here you can add new Albums to the Gallery</h3></b><br />
 	
 	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 		<div>Create new Album, Please Pick a Name  - <input class="InputBox" stype="text" size="20" name="PGNewFolder" /></div>
@@ -256,8 +269,8 @@ function uploadNresizeGallery($file, $dir){
 	}
 
 	if($countinue == true){
-		if($file['image']['error']){ $errors[] = "nothing was uploaded.."; echo '<pre>'; print_r($file['image']); echo '</pre>'; }
-		if($file['image']['size'] > $maxSize) $errors[] = "The image size you uploaded was wayyyyyyyy to big for my server to handle sorry.";
+		if($file['image']['error']){ $errors[] = "Sorry nothing was uploaded..or"; echo '<h21>Sorry nothing was uploaded</h21>'; }
+		if($file['image']['size'] > $maxSize) $errors[] = "The image size you uploaded was too big .... or";
 		if($file['image']['type'] != "image/jpeg" && $file['image']['type'] != "image/pjpeg" && $file['image']['type'] != "image/gif" && $file['image']['type'] != "image/png" && $file['image']['type'] != 'image/x-png') $errors[] = "Invalid Image format, supported image types are .jpg (.jpeg), .gif, and .png. -- ".$file['image']['type'];
 		if(empty($errors)){
 			$nr = 0;
@@ -350,8 +363,10 @@ function add2File($file, $line, $where='bottom', $check=''){
 				return array('already found this id in the file');
 			}
 		} else {
-			// gotta write the new file
-			return $this->write2File($file, "<?php die('missing data..'); ?>\n".$line."\n", 'a');
+// gotta write the new file
+			
+
+                   return $this->write2File($file, "<?php die('missing data..'); ?>\n".$line."\n", 'a');
 		}
 	}
 	
@@ -366,6 +381,7 @@ function add2File($file, $line, $where='bottom', $check=''){
 	
 // do not include \n at the end of the line..
 	function editLine($file, $id, $line=''){
+
 // $id = array('where' => 0, 'id' => $newId, 'doW' => 'edit|delete');
 		$data = file($file);
 		$fows = count($data);

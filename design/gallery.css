@@ -1,8 +1,8 @@
 .picGals .clr {
 clear:both;
 }
-.picGals .pics {
-display: inline;
+ .picGals .pics {
+display:inline;
 width: 100%;
 text-align: center;
 margin: 0 auto;
@@ -10,7 +10,7 @@ margin: 0 auto;
 .picGals .pics img {
 display: inline;
 width: 300px;
-height: auto;
+height: 300px;
 text-align: center;
 margin: 15px 15px 15px 15px;
 border-radius: 50px 50px 50px 50px!important;
@@ -40,19 +40,19 @@ width:90%;
 margin: 0 auto;
 float: none;
 }
-body.Dashboard.Plugin.gallery #Panel{
-display:none;
+body.Dashboard.Plugin.gallery #Panel {
+display: block;
+margin-left: 250px;
+margin-top: 50px;
+width: 250px;
 }
 body.Dashboard.Plugin.gallery #Foot {
 background: none transparent!important;
 border:none!important;
 margin: 0 auto;
-padding: 287px 0 70px!important;
+padding: 50px 0 70px!important;
 }
 
-body.Dashboard.Plugin.manager #Panel {
-display:none;
-}
 table#Log.AltColumns, div#Content, table#Users.AltColumns, table tbody th, table tbody td, table.Label.AltRows {
 border: 1px solid #666;
 width: 100%;
@@ -74,22 +74,41 @@ font-size:18px!important;
 font-weight:bold;
 text-shadow:0 1px 0 #000;
 }
-h19{
-font-size:28px;
+body.Dashboard.Plugin.gallery h13{
+color:lime;
+text-shadow:0 1px 0 #000;
+font-size:17px;	
+font-weight:bold;
+}
+body.Dashboard.Plugin.gallery h19{
+font-size:28px!important;
 font-weight:bold;
 font-family:Impact,Arial;
-color:aqua;
+color:aqua!important;
 
 }
-h12{
+body.Dashboard.Plugin.gallery h12{
 font-size:20px;
 font-weight:bold;
 }
-
-div.Info {
-background: none transparent;
-border:none;
+body.Dashboard.Plugin.gallery h20{
+font-size:20px;
+font-weight: bold;
+margin-bottom: 10px;
+color:gold;
+text-align: center;
+border: none;
 }
+body.Dashboard.Plugin.gallery h21{
+font-size:18px;
+font-weight: bold;
+margin-bottom: 10px;
+color:red;
+text-align: center;
+border: none;
+}
+
+
 body.Dashboard.Plugin.gallery div.picbox img{
 width:150px;
 height:auto;
@@ -97,6 +116,30 @@ height:auto;
 input.Button{
 text-shadow:0 1px 0 #fff;
 }
-div#Content h1 {
+body.Dashboard.Plugin.gallery div#Content h1 {
 border:1px solid #666!important;
+}
+div#PicGallery{
+display:inline-block;
+margin:0 auto;
+}
+div.picbox{
+width:230px;
+}
+div#PicGallery form{
+width:230px;
+display: inline-block;
+margin:0 auto;
+}
+body.Dashboard.Plugin.gallery .Info {
+font-size: 13px;
+background:transparent;
+border: 2px solid #222;
+border: 2px solid rgba(0,0,0,0.1);
+color: #000;
+-moz-border-radius: 2px;
+-webkit-border-radius: 2px;
+border-radius: 2px;
+padding: 6px 8px;
+margin: 10px 0;
 }
