@@ -4,7 +4,7 @@
 $PluginInfo['Galleries'] = array(
    'Name' => 'Galleries',
    'Description' => 'Adds an Image Gallery to you website for you and users to add new pictures to the gallery.<br/>You can create seperate albums and upload forms for everyone to have their own personal album, or create a community album for everyone.<br/>',
-   'Version' => '1.0',
+   'Version' => '1.1',
    'Author' => 'VrijVlinder',
    'AuthorEmail' => 'contact@vrijvlinder.com',
    'AuthorUrl' => 'http://www.vrijvlinder.com',

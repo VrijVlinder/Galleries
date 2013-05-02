@@ -250,7 +250,7 @@ $fi = file($dir.$folder.'/notes.dat.php');
 	<b><h3>Here you can add new Albums to the Gallery</h3></b><br />
 	
 	<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
-		<div>Create new Album, Please Pick a Name  - <input class="InputBox" stype="text" size="20" name="PGNewFolder" /></div>
+		<div>Create new Album, Please Pick a Name  - No Spaces <input class="InputBox" stype="text" size="20" name="PGNewFolder" /></div>
 		<div class="Buttons"><input id="Form_Save" name="PGFolder" value="Create New Album" class="Button" type="submit"></div>
 	</form>
 </div>
@@ -259,8 +259,8 @@ $fi = file($dir.$folder.'/notes.dat.php');
 
 function uploadNresizeGallery($file, $dir){
 	global $PATH2IM;
-	$Lwidth = 800;
-	$Lheight = 700;
+	$Lwidth =1000;
+	$Lheight =1000;
 	$maxSize = 6656000; // KBs in size
 	$mode = 0666;
 	$countinue = true;
@@ -287,8 +287,8 @@ function uploadNresizeGallery($file, $dir){
 				if(!file_exists($dir.'image'.$nr.$ext))
 				break; 
 			}
-			$SfilePath = $dir."/image".$nr.$ext;
-			$filePath = $dir."image".$nr.$ext;
+			$SfilePath = $dir."/th/".$nr.$ext;
+			$filePath = $dir."/image".$nr.$ext;
 
 			$file = $_FILES['image']['tmp_name'];
 			move_uploaded_file($file, $filePath);
@@ -396,4 +396,4 @@ function add2File($file, $line, $where='bottom', $check=''){
 		}
 		return $this->write2File($file, $write, 'w+');
 	}
-}
+}}

@@ -1,3 +1,6 @@
+*****In this version I made the linked images be resized larger and fixed a path****
+
+
 This plugin is based on Picture Gallery 0.2.1 by Yohn,john@skem9.com,
 http://www.skem9.com later edited by Trey but did not work,So I made a new one based on parts of the old one. This does not use a manager and the only settings are the permissions to upload. 
 
