@@ -15,7 +15,6 @@ $dir = 'uploads/picgal/';
 $path = $_SERVER['REQUEST_URI'];
 
 $ex = explode('/', $path);
-//If your forum is not in a directory called forum , change this to the correct name.
 $show = 'forum';
 if(isset($ex[2])){
 
@@ -29,7 +28,7 @@ if(is_dir($dir.$ex[2])){
 }
 
 switch($show){
-//If your forum is not in a directory called forum , change this to the correct name.	
+	
 case 'forum':
 
 if ($dh = opendir($dir)) {
@@ -47,9 +46,8 @@ if(is_file($dir.$vv.'/notes.dat.php')){
 		$title = str_replace('_', ' ', $vv);
 		echo '<div class="picGals"><h3>'.$title.'</h3>';
 
-// now lets go through the folder grabbing 100 from it to display as preview..you can choose a different number on 5th line below, 
-//if you do not want the images to open in a new window remove target="_blank"
-//from the link on line 8 below..		
+// now lets go through the folder grabbing 100 from it to display as preview..you can choose a different number
+		
 $fi = file($dir.$vv.'/notes.dat.php');
 		$cc = count($fi);
 		unset($fi[0]);
@@ -57,13 +55,12 @@ $fi = file($dir.$vv.'/notes.dat.php');
 		for($i=0;$i<100;$i++){
 			if(isset($fi[$i])){
 				$pg = explode('|', $fi[$i]);
-//If your forum is not in a directory called forum , change forum to the correct name.
 				echo '<div class="pics"><a class="fancybox" target="_blank" rel="group" href="/forum/'.$dir.$folder.$title.'/'.$pg[0].'" title="'.stripslashes(htmlentities(urldecode($pg2[1]))).'"><img src="/forum/'.$dir.$vv.'/'.$pg[0].'" alt="User Images"/></a></div>';
 			}
 
 		} 
 
-//If your forum is not in a directory called forum , change forum to the correct name.
+
 echo '<div class="clr"></div><div class="linkBar"><a class="Button" href="/forum/gallery/'.$vv.'">View or Upload More Pictures From '.$title.'</a></div>
 		</div>';
 	}
@@ -82,7 +79,6 @@ echo '<div class="clr"></div><div class="linkBar"><a class="Button" href="/forum
 			
 			if(is_int($bb/3)){ echo '<div class="clr"></div>'; }
 			$bb++;
-//If your forum is not in a directory called forum , change forum to the correct name.			
 			echo '<div class="pics"><img src="/forum/'.$dir.$folder.'/'.$pg2[0].'" alt="UserImages" /><br /></div>';
 		}
 		echo '<div class="clr"></div>';
@@ -142,7 +138,6 @@ $theFile = uploadNresizeGallery($_FILES, $dir.$_POST['PGWhichFolder'].'/');
 		$write2file = new FileWriting;
 		$gogo = $write2file->add2File($dir.$_POST['PGWhichFolder'].'/notes.dat.php', $blow[$cc-1].'|'.urlencode($_POST['PGCaption']));
 		if(is_array($gogo)) echo $gogo[0];
-//If your forum is not in a directory called forum , change forum to the correct name.		
  else echo '<b><h3>Success File has been uploaded!... </h3></b><br /><a href="/forum/gallery" title="Go Back To Main Gallery">Go Back to main Gallery</a>....<br />';
 	} 
 else{
@@ -173,7 +168,6 @@ $UserHasPermission = Gdn::Session()->CheckPermission('Plugins.Attachments.Upload
     echo 'Editing the image..';
     switch($_POST['imgSave']) {
         case 'Delete Image':
- //If your forum is not in a directory called forum , change forum to the correct name.       
             echo 'deleting the image...<br /><a href="/forum/gallery" title="Go Back To Main Gallery">Go Back to main Gallery...</a><br/>';
             unlink($dir.$folder.'/'.$_POST['imgName']);
             unlink($dir.$folder.'/th/'.$_POST['imgName']);
@@ -182,7 +176,6 @@ $UserHasPermission = Gdn::Session()->CheckPermission('Plugins.Attachments.Upload
             echo $gogo;
         break;
         case 'Save Image';
-//If your forum is not in a directory called forum , change forum to the correct name.        
             echo 'saving the caption on the image..<br /><a href="/forum/gallery" title="Go Back To Main Gallery">Go Back to main Gallery</a>....<br />';
             $write2file = new FileWriting;
             $gogo = $write2file->editLine($dir.$folder.'/notes.dat.php', array('where' => '0', 'id' => $_POST['imgName'], 'doW' => 'edit'), $_POST['imgName'].'|'.urlencode($_POST['imgCap']));
@@ -226,11 +219,9 @@ $fi = file($dir.$folder.'/notes.dat.php');
 // browse the pictures..
 		for($i=1; $i<$cc;$i++){
 			$pg2 = explode('|', $fi[$i]);
-//If your forum is not in a directory called forum , change forum to the correct name.			
 			echo '
 		<form action="'. $_SERVER['REQUEST_URI'].'" method="post">
 			<div class="picbox">
-
 			<img src="/forum/'.$dir.$folder.'/'.$pg2[0].'" alt="image" /><br />
 			<input type="hidden" name="imgName" value="'.$pg2[0].'" />
 			<input type="text" size="20" name="imgCap" value="'.urldecode($pg2[1]).'" /><br />
@@ -238,7 +229,6 @@ $fi = file($dir.$folder.'/notes.dat.php');
 			<input type="submit" name="imgSave" value="Delete Image"  class="Button" />
 			</div>
 		</form>';
-//Here you can change how many images to show in total. Every time you refresh the page it will shuffle them.
 			if(is_int($i/1000)) echo '
 				<div class="clr"></div>
 			</div>
@@ -316,8 +306,8 @@ function uploadNresizeGallery($file, $dir){
 			$files['small'] = $SfilePath;
 			$files['large'] = $filePath;
 			return $files;
-		} else { $errors[] = "Image Error"; }
-	} else { $errors[] = "Something happened to the directories permission"; }
+		} else { $errors[] = "Image error"; }
+	} else { $errors[] = "something happened to the directories permission"; }
 	return $errors;
 }
 
@@ -406,6 +396,4 @@ function add2File($file, $line, $where='bottom', $check=''){
 		}
 		return $this->write2File($file, $write, 'w+');
 	}
-}
-
-}
+}}
