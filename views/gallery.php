@@ -138,7 +138,7 @@ $theFile = uploadNresizeGallery($_FILES, $dir.$_POST['PGWhichFolder'].'/');
 		$write2file = new FileWriting;
 		$gogo = $write2file->add2File($dir.$_POST['PGWhichFolder'].'/notes.dat.php', $blow[$cc-1].'|'.urlencode($_POST['PGCaption']));
 		if(is_array($gogo)) echo $gogo[0];
- else echo '<b><h3>Success File has been uploaded!... </h3></b><br /><a href="/forum/gallery" title="Go Back To Main Gallery">Go Back to main Gallery</a>....<br />';
+ else echo '<b><h3>Success File has been uploaded!... </h3></b></br><a href="/forum/gallery" title="Go Back To Main Gallery to view image">Go Back to main Gallery</a>....</br>';
 	} 
 else{
 // couldnt upload the picture.
@@ -396,4 +396,4 @@ function add2File($file, $line, $where='bottom', $check=''){
 		}
 		return $this->write2File($file, $write, 'w+');
 	}
-}}
+}
