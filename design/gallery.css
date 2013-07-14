@@ -120,13 +120,15 @@ h12{
 font-size:20px;
 font-weight:bold;
 }
-h20{
-font-size:20px;
+body.Dashboard.Plugin.gallery h20 {
+font-size: 20px;
 font-weight: bold;
 margin-bottom: 10px;
-color:gold;
+padding: 3px;
+color:#FFD700;
 text-align: center;
-border: none;
+border: 4px solid red;
+background:rgba(0,0,0,0.5);
 }
 h21{
 font-size:18px;
