@@ -1,4 +1,3 @@
-*****In this version I made the linked images be resized larger and fixed a path****
 
 
 This plugin is based on Picture Gallery 0.2.1 by Yohn,john@skem9.com,
@@ -22,3 +21,10 @@ you need to change that in the gallery.php where the path indicates /forum/ , or
 Before you mess it up best ask for guidance if you think you can't do it or don't know how.
 
 You can use this with the VanillaFancyBox plugin, if you do then you can choose to show less images and you can view all the images from the fancy box. You may need to add the plugincontroller to the array of places the fancy box will be used on.
+
+
+<<<<<<< HEAD
+If your forum is not called forum, please change all the parts that say forum to the name of the forum. If your forum is in the root please use the alternate gallery.php in the views folder and save the other in another folder or delete it.
+=======
+If your forum is not called forum, please change all the parts that say forum to the name of the forum. If your forum is in the root please replace all the parts that say forum with a /
+>>>>>>> FETCH_HEAD
